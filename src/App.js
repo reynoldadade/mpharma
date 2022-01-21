@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
+import ProductList from "./UI/ProductList";
 
 function App() {
+  //products state
+  const [products, setProducts] = useState([]);
+  /// for loading
+  const [isLoading, setIsLoading] = useState(true);
+
+  //make axios call
+  const getProducts = async () => {
+    try {
+      const response = await axios.get(
+        "http://www.mocky.io/v2/5c3e15e63500006e003e9795"
+      );
+      console.log(response);
+
+      return response.data.products;
+    } catch (error) {
+      return false;
+    }
+  };
+  //handle response from axios call
+
+  const getProductsHandler = useCallback(async () => {
+    const products = await getProducts();
+    if (products) {
+      setProducts(products);
+    }
+    setIsLoading(false);
+  }, []);
+
+  // call handler on mount
+  useEffect(() => {
+    getProductsHandler();
+  }, [getProductsHandler]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isLoading && <p>Loading ...</p>}
+      {!isLoading && products.length > 0 && <ProductList products={products} />}
+      {!isLoading && products.length === 0 && <p>No products found</p>}
     </div>
   );
 }
