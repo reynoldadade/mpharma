@@ -1,6 +1,6 @@
 import "./App.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ProductList from "./UI/ProductList";
 
 function App() {
@@ -9,28 +9,33 @@ function App() {
   /// for loading
   const [isLoading, setIsLoading] = useState(true);
 
-  //get products from the api
+  //make axios call
   const getProducts = async () => {
     try {
       const response = await axios.get(
         "http://www.mocky.io/v2/5c3e15e63500006e003e9795"
       );
+      console.log(response);
 
       return response.data.products;
     } catch (error) {
-      console.log(error);
+      return false;
     }
   };
+  //handle response from axios call
 
-  useEffect(() => {
-    async function callAPI() {
-      const products = await getProducts();
-      setIsLoading(false);
+  const getProductsHandler = useCallback(async () => {
+    const products = await getProducts();
+    if (products) {
       setProducts(products);
     }
-
-    callAPI();
+    setIsLoading(false);
   }, []);
+
+  // call handler on mount
+  useEffect(() => {
+    getProductsHandler();
+  }, [getProductsHandler]);
 
   return (
     <div className="App">
