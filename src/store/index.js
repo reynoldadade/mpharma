@@ -1,38 +1,33 @@
-import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { normalizeProduct } from "./normalizr.js";
 
-const reducer = (state, action) => {
-  // action getProductList
-  if (action.type === "ADD_PRODUCTS") {
-    return {
-      products: state.products.concat(action.payload),
-    };
-  }
-
-  //action getPriceList
-  if (action.type === "ADD_PRICE") {
-    return {
-      prices: state.prices.concat(action.payload),
-    };
-  }
-
-  // action GET_PRODUCT
-  if (action.type === "GET_PRODUCTS_BY_ID") {
-    return {
-      products: state.products.filter(
-        (product) => product.id === action.payload
-      ),
-    };
-  }
-
-  //action GET_PRICE
-  if (action.type === "GET_PRICE_BY_ID") {
-    return {
-      prices: state.prices.filter((price) => price.id === action.payload),
-    };
-  }
-
-  return state;
+// initialize state
+const initialState = {
+  products: {},
+  prices: {},
 };
-const store = createStore(reducer);
 
+//create a slice
+const productsSlice = createSlice({
+  name: "products",
+  initialState,
+  reducers: {
+    addProducts: (state, action) => {
+      const response = normalizeProduct(action.payload);
+      state.products = response.entities.products;
+      state.prices = response.entities.prices;
+    },
+  },
+});
+
+//create store
+const store = configureStore(
+  {
+    reducer: productsSlice.reducer,
+    /* preloadedState, */
+  },
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+// export product actions
+export const { actions } = productsSlice;
 export default store;

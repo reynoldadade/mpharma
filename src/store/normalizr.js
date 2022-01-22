@@ -9,10 +9,11 @@ export function normalizeProduct(products) {
   return normalizedData;
 }
 
-export function denormalizeProduct(result, productsEntity) {
+export function denormalizeProduct(productsEntity) {
   // create product schema
 
   const productSchema = new schema.Entity("products");
+  const result = Object.keys(productsEntity);
 
   const denormalizedProduct = denormalize(
     { products: result },
