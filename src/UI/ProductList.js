@@ -4,7 +4,7 @@ const ProductList = ({ products }) => {
   return (
     <Fragment>
       <div className="py-2">
-        <button className="rounded shadow bg-green-500 p-2 text-white hover:bg-green-600">
+        <button className="rounded shadow text-purple-900 p-2 bg-purple-100 hover:bg-purple-200">
           Add Product{" "}
           <span>
             <i className="fas fa-plus"></i>

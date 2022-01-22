@@ -1,5 +1,6 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 import { normalizeProduct } from "./normalizr.js";
+import moment from "moment";
 
 // initialize state
 const initialState = {
@@ -16,6 +17,52 @@ const productsSlice = createSlice({
       const response = normalizeProduct(action.payload);
       state.products = response.entities.products;
       state.prices = response.entities.prices;
+    },
+    updateProductName: (state, action) => {
+      // access product by id and update name
+      state.products[action.payload.id].name = action.payload.name;
+      //
+    },
+
+    addProductPrice: (state, action) => {
+      // add price to prices object
+
+      //find highest price id
+      const highestPriceId = Math.max(...Object.keys(state.prices));
+      const newPriceId = highestPriceId + 1;
+      //updated prices object
+      state.prices[newPriceId] = {
+        id: newPriceId,
+        price: action.payload.price,
+        date: moment().format(),
+      };
+      //update product object
+      state.products[action.payload.productId].prices.push(newPriceId);
+    },
+
+    //delete product
+    deleteProduct: (state, action) => {
+      //delete product from products object
+      delete state.products[action.payload.id];
+    },
+    //add a product
+    addProduct: (state, action) => {
+      // add product to products object
+      const newProductId = Math.max(...Object.keys(state.products)) + 1;
+      state.products[newProductId] = {
+        id: newProductId,
+        name: action.payload.name,
+      };
+      //find highest price id
+      const highestPriceId = Math.max(...Object.keys(state.prices));
+      //add price id to product object
+      state.products[newProductId].prices = [highestPriceId + 1];
+      //update prices object
+      state.prices[highestPriceId + 1] = {
+        id: highestPriceId + 1,
+        price: action.payload.price,
+        date: moment().format(),
+      };
     },
   },
 });
