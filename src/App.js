@@ -5,7 +5,7 @@ import ProductList from "./UI/ProductList";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "./store/index";
-import { getPriceSelector, getProductsSelector } from "./store/selectors";
+import { getProductsSelector } from "./store/selectors";
 
 function App() {
   /// for loading
