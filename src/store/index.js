@@ -2,7 +2,7 @@ import { createStore } from "redux";
 
 const reducer = (state, action) => {
   // action getProductList
-  if (action.type === "ADD_PRODUCT") {
+  if (action.type === "ADD_PRODUCTS") {
     return {
       products: state.products.concat(action.payload),
     };
