@@ -43,7 +43,7 @@ const productsSlice = createSlice({
     //delete product
     deleteProduct: (state, action) => {
       //delete product from products object
-      delete state.products[action.payload.id];
+      delete state.products[action.payload];
     },
     //add a product
     addProduct: (state, action) => {
