@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Modal from "./Modal";
 import { actions } from "../store/index";
+import AddProductForm from "./AddProductForm";
 
 const ProductList = ({ products }) => {
   //create state for modal
@@ -21,8 +22,8 @@ const ProductList = ({ products }) => {
   };
 
   //create state handler for modal
-  const handleModal = () => {
-    setIsOpen(!isOpen);
+  const openModalHandler = () => {
+    setIsOpen(true);
   };
   const closeModalHandler = () => {
     setIsOpen(false);
@@ -32,7 +33,7 @@ const ProductList = ({ products }) => {
       <div className="py-2">
         <button
           className="rounded shadow text-purple-900 p-2 bg-purple-100 hover:bg-purple-200"
-          onClick={handleModal}
+          onClick={openModalHandler}
         >
           Add Product{" "}
           <span>
@@ -44,8 +45,13 @@ const ProductList = ({ products }) => {
           title={title}
           buttonText={buttonText}
           closeModal={closeModalHandler}
-          submitMethod={handleAddProduct}
-        />
+        >
+          <AddProductForm
+            buttonText={buttonText}
+            submitMethod={handleAddProduct}
+            closeModal={closeModalHandler}
+          />
+        </Modal>
       </div>
       <div className="product-list">
         {products.map((product) => (

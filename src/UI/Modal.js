@@ -1,27 +1,22 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
-export default function MyModal({
-  isOpen,
-  title,
-  closeModal,
-  buttonText,
-  submitMethod,
-}) {
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState(0);
+export default function MyModal({ isOpen, title, closeModal, children }) {
+  //   const [productName, setProductName] = useState("");
+  //   const [productPrice, setProductPrice] = useState(0);
   // create handlers for input fields
-  const handleProductName = (e) => {
-    setProductName(e.target.value);
-  };
-  const handleProductPrice = (e) => {
-    setProductPrice(e.target.value);
-  };
-  const submitHandler = (e) => {
-    e.preventDefault();
-    submitMethod({ name: productName, price: productPrice });
-    closeModal();
-  };
+  //   const handleProductName = (e) => {
+  //     setProductName(e.target.value);
+  //   };
+  //   const handleProductPrice = (e) => {
+  //     setProductPrice(e.target.value);
+  //   };
+  //   const submitHandler = (e) => {
+  //     e.preventDefault();
+  //     const productData = { name: productName, price: productPrice };
+  //     submitMethod(productData);
+  //     closeModal();
+  //   };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -67,7 +62,9 @@ export default function MyModal({
                 {title}
               </Dialog.Title>
               <div className="mt-2 w-full p-2">
-                <form onSubmit={submitHandler}>
+                {children}
+
+                {/* <form onSubmit={submitHandler}>
                   <div className="p-2">
                     <label htmlFor="productName" className=" font-medium">
                       Product
@@ -105,7 +102,7 @@ export default function MyModal({
                       {buttonText}
                     </button>
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
           </Transition.Child>
