@@ -1,8 +1,9 @@
 import { Disclosure, Transition } from "@headlessui/react";
-import { ChevronUpIcon, TrashIcon, PencilIcon } from "@heroicons/react/solid";
+import { ChevronUpIcon } from "@heroicons/react/solid";
 import { useSelector, useDispatch } from "react-redux";
 import { getLatestPrice } from "../store/selectors";
 import PriceList from "./PriceList";
+import MenuItem from "./MenuItem";
 //import acitons
 import { actions } from "../store/index";
 const ProductList = ({ product }) => {
@@ -49,17 +50,13 @@ const ProductList = ({ product }) => {
                 </div>
                 <PriceList prices={product.prices} />
               </div>
-              <div>
-                <button
-                  className="rounded-full bg-red-100 hover:bg-red-200 p-1 mx-1"
-                  onClick={() => handleDeleteProduct(product.id)}
-                >
-                  <TrashIcon className="w-5 h-5 text-red-500" />
+              <MenuItem />
+              {/* <div>
+                <button className="hover:bg-purple-100 rounded-full p-1">
+                  {" "}
+                  <DotsVerticalIcon className="h-5 w-5" />
                 </button>
-                <button className="rounded-full bg-purple-100 hover:bg-purple-200 p-1 mx-1">
-                  <PencilIcon className="w-5 h-5 text-purple-900" />
-                </button>
-              </div>
+              </div> */}
             </Disclosure.Panel>
           </Transition>
         </>
