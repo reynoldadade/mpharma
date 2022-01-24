@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/solid";
 import { Fragment } from "react";
 
-function MyDropdown() {
+function MyDropdown({ deleteProduct, productId }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-purple-900 bg-purple-100  rounded-full bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -45,7 +45,10 @@ function MyDropdown() {
             </button>
           </Menu.Item>
           <Menu.Item>
-            <button className="group flex rounded-md items-center w-full px-2 py-2 text-sm hover:bg-purple-100">
+            <button
+              className="group flex rounded-md items-center w-full px-2 py-2 text-sm hover:bg-purple-100"
+              onClick={() => deleteProduct(productId)}
+            >
               <TrashIcon
                 className="w-5 h-5 mr-2 text-red-500"
                 aria-hidden="true"

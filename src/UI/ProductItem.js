@@ -50,7 +50,10 @@ const ProductList = ({ product }) => {
                 </div>
                 <PriceList prices={product.prices} />
               </div>
-              <MenuItem />
+              <MenuItem
+                deleteProduct={handleDeleteProduct}
+                productId={product.id}
+              />
               {/* <div>
                 <button className="hover:bg-purple-100 rounded-full p-1">
                   {" "}
