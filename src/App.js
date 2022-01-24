@@ -43,7 +43,7 @@ function App() {
   }, [getProductsHandler]);
 
   return (
-    <div className="p-40">
+    <div className="md:p-40 p-10">
       {isLoading && <p>Loading ...</p>}
 
       {!isLoading && getProduct.products.length > 0 && (

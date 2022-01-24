@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import ProductItem from "./ProductItem";
 const ProductList = ({ products }) => {
   return (
-    <Fragment>
+    <div className="">
       <div className="py-2">
         <button className="rounded shadow text-purple-900 p-2 bg-purple-100 hover:bg-purple-200">
           Add Product{" "}
@@ -16,7 +16,7 @@ const ProductList = ({ products }) => {
           <ProductItem product={product} key={product.id} />
         ))}
       </div>
-    </Fragment>
+    </div>
   );
 };
 
