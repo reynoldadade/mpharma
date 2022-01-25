@@ -24,7 +24,7 @@ const productsSlice = createSlice({
       //
     },
 
-    addProductPrice: (state, action) => {
+    updateProductPrice: (state, action) => {
       // add price to prices object
 
       //find highest price id
@@ -37,7 +37,7 @@ const productsSlice = createSlice({
         date: moment().format(),
       };
       //update product object
-      state.products[action.payload.productId].prices.push(newPriceId);
+      state.products[action.payload.id].prices.push(newPriceId);
     },
 
     //delete product

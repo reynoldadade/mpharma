@@ -2,11 +2,33 @@ import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
 import { useSelector, useDispatch } from "react-redux";
 import { getLatestPrice } from "../store/selectors";
+import { useState } from "react";
 import PriceList from "./PriceList";
 import MenuItem from "./MenuItem";
+import Modal from "./Modal";
+import UpdateProductNameForm from "./UpdateProductNameForm";
+import UpdateProductPriceForm from "./UpdateProductPriceForm";
 //import acitons
 import { actions } from "../store/index";
 const ProductList = ({ product }) => {
+  //setup modal flags
+  const [isNameFormOpen, setIsNameFormOpen] = useState(false);
+  const [isPriceFormOpen, setIsPriceFormOpen] = useState(false);
+
+  const openUpdateNameForm = () => {
+    setIsNameFormOpen(true);
+  };
+  const closeUpdateNameForm = () => {
+    setIsNameFormOpen(false);
+  };
+  const openUpdatePriceForm = () => {
+    setIsPriceFormOpen(true);
+  };
+
+  const closeUpdatePriceForm = () => {
+    setIsPriceFormOpen(false);
+  };
+
   const latestPrice = useSelector((state) =>
     getLatestPrice(state, product.prices)
   );
@@ -18,6 +40,16 @@ const ProductList = ({ product }) => {
     //delete product from store
     dispatch(actions.deleteProduct(productId));
   };
+
+  const updateProductNameHandler = (product) => {
+    //update product name
+    dispatch(actions.updateProductName(product));
+  };
+
+  const updatePriceHandler = (product) => {
+    dispatch(actions.updateProductPrice(product));
+  };
+
   return (
     <Disclosure>
       {({ open }) => (
@@ -53,15 +85,35 @@ const ProductList = ({ product }) => {
               <MenuItem
                 deleteProduct={handleDeleteProduct}
                 productId={product.id}
+                openUpdateNameForm={openUpdateNameForm}
+                openUpdatePriceForm={openUpdatePriceForm}
               />
-              {/* <div>
-                <button className="hover:bg-purple-100 rounded-full p-1">
-                  {" "}
-                  <DotsVerticalIcon className="h-5 w-5" />
-                </button>
-              </div> */}
             </Disclosure.Panel>
           </Transition>
+          <Modal
+            isOpen={isNameFormOpen}
+            title={"Update Name"}
+            closeModal={closeUpdateNameForm}
+          >
+            <UpdateProductNameForm
+              buttonText={"update"}
+              submitMethod={updateProductNameHandler}
+              closeModal={closeUpdateNameForm}
+              id={product.id}
+            />
+          </Modal>
+          <Modal
+            isOpen={isPriceFormOpen}
+            title={"Set New Price"}
+            closeModal={closeUpdatePriceForm}
+          >
+            <UpdateProductPriceForm
+              buttonText={"update"}
+              submitMethod={updatePriceHandler}
+              closeModal={closeUpdatePriceForm}
+              id={product.id}
+            />
+          </Modal>
         </>
       )}
     </Disclosure>

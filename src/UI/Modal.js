@@ -1,13 +1,13 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-export default function MyModal({ isOpen, title, closeModal, children }) {
+export default function MyModal(props) {
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={props.isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={closeModal}
+        onClose={props.closeModal}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -43,9 +43,9 @@ export default function MyModal({ isOpen, title, closeModal, children }) {
                 as="h3"
                 className="text-lg font-bold leading-6 text-purple-900"
               >
-                {title}
+                {props.title}
               </Dialog.Title>
-              <div className="mt-2 w-full p-2">{children}</div>
+              <div className="mt-2 w-full p-2">{props.children}</div>
             </div>
           </Transition.Child>
         </div>
