@@ -1,6 +1,7 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 import { normalizeProduct } from "./normalizr.js";
 import moment from "moment";
+import { loadState, saveState } from "./localStorage.js";
 
 // initialize state
 const initialState = {
@@ -66,15 +67,22 @@ const productsSlice = createSlice({
     },
   },
 });
+//persisted state loaded if it exists
+const persistedState = loadState();
 
 //create store
 const store = configureStore(
   {
     reducer: productsSlice.reducer,
+    preloadedState: persistedState,
     /* preloadedState, */
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
 // export product actions
 export const { actions } = productsSlice;
 export default store;

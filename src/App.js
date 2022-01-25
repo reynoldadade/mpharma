@@ -13,6 +13,7 @@ function App() {
   const dispatch = useDispatch();
   // products selector
   const getProduct = useSelector(getProductsSelector);
+  const getPrice = useSelector((state) => state.prices);
 
   //make axios call
   const getProducts = async () => {
@@ -30,8 +31,11 @@ function App() {
 
   const getProductsHandler = useCallback(async () => {
     const products = await getProducts();
+    if (getProduct.length > 0 || Object.keys(getPrice).length > 0) {
+      return setIsLoading(false);
+    }
     if (products) {
-      //save products to store
+      //save products to store if state doesnt already exist
       dispatch(actions.addProducts(products));
     }
     setIsLoading(false);
