@@ -31,18 +31,22 @@ function App() {
           );
 
           dispatch(actions.addProducts(response.data.products));
-          // setIsLoading(false);
+          setIsLoading(false);
         } catch (error) {
+          setIsLoading(false);
           // console.log(error);
           return false;
         }
       }
 
       getProductsHandler();
-      return () => {
-        setIsLoading(false);
-      };
+    } else {
+      setIsLoading(false);
     }
+
+    return () => {
+      setIsLoading(false);
+    };
   }, [getProduct.products.length, getPrice, dispatch]);
 
   return (
