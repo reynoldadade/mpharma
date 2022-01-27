@@ -84,5 +84,5 @@ store.subscribe(() => {
   saveState(store.getState());
 });
 // export product actions
-export const { actions } = productsSlice;
+export const { actions, reducer } = productsSlice;
 export default store;

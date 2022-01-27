@@ -8,7 +8,9 @@ const PriceItem = ({ price }) => {
   return (
     <div className="w-full flex justify-between p-2">
       <div>
-        <span className="px-2">{getPrice.price}</span>{" "}
+        <span className="px-2" data-testid="priceSpan">
+          {getPrice.price}
+        </span>{" "}
         <span className="px-2 text-xs text-gray-400 italic">
           {moment(getPrice.date, "YYYYMMDD").fromNow()}
         </span>
