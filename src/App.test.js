@@ -1,39 +1,9 @@
 import App from "./App";
 import React from "react";
-import { render, screen, waitForElement, cleanup } from "./test-utils";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
+import { render, screen, cleanup } from "./test-utils";
+// import axios from "axios";
 
-export const handlers = [
-  rest.get(
-    "http://www.mocky.io/v2/5c3e15e63500006e003e9795",
-    (req, res, ctx) => {
-      return res(
-        ctx.json({
-          products: [
-            // {
-            //   id: 1,
-            //   name: "Exforge 10mg",
-            //   prices: [
-            //     {
-            //       id: 1,
-            //       price: 10.99,
-            //       date: "2019-01-01T17:16:32+00:00",
-            //     },
-            //     {
-            //       id: 2,
-            //       price: 9.2,
-            //       date: "2018-11-01T17:16:32+00:00",
-            //     },
-            //   ],
-            // },
-          ],
-        }),
-        ctx.delay(150)
-      );
-    }
-  ),
-];
+// jest.mock("axios");
 
 const preloadedState = {
   products: {},
@@ -53,6 +23,14 @@ describe("App", () => {
   });
 
   describe("When loading is done", () => {
+    // const product = [
+    //   {
+    //     id: 1,
+    //     name: "Product 1",
+    //     prices: [{ id: 1, price: 1, date: "2020-01-01T00:00:00.000Z" }],
+    //   },
+    // ];
+
     it("shows list of products", async () => {
       //mock api call with msw
 
