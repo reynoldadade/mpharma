@@ -54,8 +54,11 @@ const ProductList = ({ product }) => {
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-purple-900 bg-purple-100 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 mb-1">
-            <span data-testid="productName">
+          <Disclosure.Button
+            className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-purple-900 bg-purple-100 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 mb-1"
+            data-testid="disclosureButton"
+          >
+            <span data-testid="productNameSpan">
               {product.name} -{" "}
               <span className="font-bold">{latestPrice.price}</span>
             </span>
@@ -75,7 +78,10 @@ const ProductList = ({ product }) => {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500 flex justify-between">
+            <Disclosure.Panel
+              className="px-4 pt-4 pb-2 text-sm text-gray-500 flex justify-between"
+              data-testid="disclosurePanel"
+            >
               <div>
                 <div className="font-semibold text-xs text-gray-500">
                   Historical Prices{" "}

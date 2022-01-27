@@ -16,6 +16,11 @@ describe("ProductItem", () => {
         price: 1,
         date: "2020-01-01T00:00:00.000Z",
       },
+      2: {
+        id: 2,
+        price: 2,
+        date: "2020-01-02T00:00:00.000Z",
+      },
     },
     products: {
       1: {
@@ -28,8 +33,18 @@ describe("ProductItem", () => {
 
   test("Product item should display product name", () => {
     render(<ProductItem product={product} />, { preloadedState });
-    const productNameSpan = screen.getByTestId("productName");
+    const productNameSpan = screen.getByTestId("productNameSpan");
     expect(productNameSpan).toBeInTheDocument();
-    productNameSpan.textContent.includes(product.name);
+
+    expect(productNameSpan.textContent).toContain(product.name);
+  });
+
+  test("Clicking header should display historical price", () => {
+    render(<ProductItem product={product} />, { preloadedState });
+    const disclosureButton = screen.getByTestId("disclosureButton");
+    fireEvent.click(disclosureButton);
+    const disclosurePanel = screen.getByTestId("disclosurePanel");
+    expect(disclosurePanel).toBeInTheDocument();
+    expect(disclosurePanel.textContent).toContain("Historical Prices");
   });
 });
