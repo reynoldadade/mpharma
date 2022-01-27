@@ -31,16 +31,17 @@ function App() {
           );
 
           dispatch(actions.addProducts(response.data.products));
-          setIsLoading(false);
+          // setIsLoading(false);
         } catch (error) {
-          setIsLoading(false);
+          // console.log(error);
           return false;
         }
       }
 
       getProductsHandler();
-    } else {
-      setIsLoading(false);
+      return () => {
+        setIsLoading(false);
+      };
     }
   }, [getProduct.products.length, getPrice, dispatch]);
 
@@ -52,7 +53,7 @@ function App() {
         <ProductList products={getProduct.products} />
       )}
       {!isLoading && getProduct.products.length === 0 && (
-        <p>No products found</p>
+        <p data-testid="no-product-div">No products found</p>
       )}
     </div>
   );

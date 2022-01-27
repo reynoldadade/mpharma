@@ -29,7 +29,7 @@ const ProductList = ({ products }) => {
     setIsOpen(false);
   };
   return (
-    <div className="">
+    <div className="" data-testid="product-div">
       <div className="py-2">
         <button
           className="rounded shadow text-purple-900 p-2 bg-purple-100 hover:bg-purple-200"
