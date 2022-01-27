@@ -9,7 +9,9 @@ const preloadedState = {
   products: {},
   prices: {},
 };
-
+beforeEach(() => {
+  localStorage.clear();
+});
 afterEach(() => {
   localStorage.clear();
 });
